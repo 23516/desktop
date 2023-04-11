@@ -5,6 +5,7 @@ import tyut.selab.desktop.moudle.sharecenter.domain.vo.BugVo;
 import tyut.selab.desktop.moudle.student.domain.User;
 
 
+import java.sql.SQLException;
 import java.util.List;
 
 public interface IShareCenterDao {
@@ -12,7 +13,7 @@ public interface IShareCenterDao {
      * 查询所有bug信息
      * @return
      */
-    List<BugMessage> queryAllBugInfo();
+    List<BugMessage> queryAllBugInfo() throws Exception;
 
     /**
      * 根据bug类型查询bug
@@ -26,14 +27,14 @@ public interface IShareCenterDao {
      * @param user
      * @return
      */
-    List<BugMessage> ShowBugInfo(User user);
+    List<BugMessage> ShowBugInfo(User user) throws Exception;
 
     /**
      * 增加
      * @param bugMessage
      * @return
      */
-    int insertBugInfo(BugMessage bugMessage);
+    int insertBugInfo(BugMessage bugMessage) throws SQLException;
 
     /**
      * 修改
@@ -48,5 +49,5 @@ public interface IShareCenterDao {
      * @param bugMessage
      * @return
      */
-    int deleteBugInfo(BugMessage bugMessage);
+    int deleteBugInfo(BugMessage bugMessage) throws SQLException;
 }
