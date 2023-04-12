@@ -1,21 +1,28 @@
 package tyut.selab.desktop.moudle.sharecenter.service.impl;
 
 import tyut.selab.desktop.moudle.sharecenter.dao.IShareCenterDao;
+import tyut.selab.desktop.moudle.sharecenter.dao.impl.BugTypeDao;
 import tyut.selab.desktop.moudle.sharecenter.domain.BugType;
 import tyut.selab.desktop.moudle.sharecenter.domain.vo.BugVo;
 import tyut.selab.desktop.moudle.sharecenter.service.IShareCenterService;
 import tyut.selab.desktop.moudle.student.domain.vo.UserVo;
 import tyut.selab.desktop.moudle.student.userdao.IUserDao;
 
+import java.sql.SQLException;
 import java.util.List;
 
 public class ShareCenterService implements IShareCenterService{
     private IShareCenterDao shareCenterDao;
+    private BugTypeDao bugTypeDao = new BugTypeDao();
 
     private IUserDao userDao;
     @Override
     public List<BugType> queryAllType() {
-        return null;
+        try {
+            return bugTypeDao.queryAllType();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
@@ -50,16 +57,28 @@ public class ShareCenterService implements IShareCenterService{
 
     @Override
     public int insertBugType(BugType bugType) {
-        return 0;
+        try {
+            return bugTypeDao.insertBugType(bugType);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
     public int updateBugType(BugType newBugType, BugType oldBugType) {
-        return 0;
+        try {
+            return bugTypeDao.updateBugType(newBugType, oldBugType);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
     public int delete(BugType bugType) {
-        return 0;
+        try {
+            return bugTypeDao.delete(bugType);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

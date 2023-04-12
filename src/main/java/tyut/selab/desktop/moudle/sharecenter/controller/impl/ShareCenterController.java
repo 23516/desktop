@@ -4,61 +4,62 @@ import tyut.selab.desktop.moudle.sharecenter.controller.IShareCenterController;
 import tyut.selab.desktop.moudle.sharecenter.domain.BugType;
 import tyut.selab.desktop.moudle.sharecenter.domain.vo.BugVo;
 import tyut.selab.desktop.moudle.sharecenter.service.IShareCenterService;
+import tyut.selab.desktop.moudle.sharecenter.service.impl.ShareCenterService;
 import tyut.selab.desktop.moudle.student.domain.vo.UserVo;
 
 import java.util.List;
 
 public class ShareCenterController implements IShareCenterController {
 
-    private IShareCenterService shareCenterService;
+    private IShareCenterService shareCenterService = new ShareCenterService();
 
     @Override
     public List<BugType> queryAllType() {
-        return null;
+        return shareCenterService.queryAllType();
     }
 
     @Override
     public List<BugVo> showBugInfo() {
-        return null;
+        return shareCenterService.showBugInfo();
     }
 
     @Override
     public List<BugVo> ShowBugInfo(List<String> bugType) {
-        return null;
+        return shareCenterService.ShowBugInfo(bugType);
     }
 
     @Override
     public List<BugVo> ShowBugInfo(UserVo userVo) {
-        return null;
+        return shareCenterService.ShowBugInfo(userVo);
     }
 
     @Override
     public int insertBugInfo(BugVo bugVo) {
-        return 0;
+        return shareCenterService.insertBugInfo(bugVo);
     }
 
     @Override
     public int updateBugInfo(BugVo newBugVo, BugVo oldBugVo) {
-        return 0;
+        return shareCenterService.updateBugInfo(newBugVo,oldBugVo);
     }
 
     @Override
     public int deleteBugInfo(BugVo bugVo) {
-        return 0;
+        return shareCenterService.deleteBugInfo(bugVo);
     }
 
     @Override
     public int insertBugType(BugType bugType) {
-        return 0;
+        return shareCenterService.insertBugType(bugType);
     }
 
     @Override
     public int updateBugType(BugType newBugType, BugType oldBugType) {
-        return 0;
+        return shareCenterService.updateBugType(newBugType, oldBugType);
     }
 
     @Override
     public int delete(BugType bugType) {
-        return 0;
+        return shareCenterService.delete(bugType);
     }
 }
