@@ -1,5 +1,7 @@
 package tyut.selab.desktop.moudle.student.domain;
 
+import tyut.selab.desktop.moudle.student.domain.vo.UserVo;
+
 import java.util.Date;
 
 public class User {
@@ -13,6 +15,8 @@ public class User {
     private Date registerTime; //登录时间
     private int loginStatus; //登录状态
     private Role role; //用户职责
+
+
 
     public String getAccountNumber() {
         return accountNumber;

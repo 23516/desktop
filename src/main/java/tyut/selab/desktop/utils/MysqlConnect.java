@@ -17,6 +17,7 @@ public class MysqlConnect{
     static{
         try {
             Properties pro = new Properties();
+
             pro.load(ClassLoader.getSystemResourceAsStream("druid.properties"));
             ds = DruidDataSourceFactory.createDataSource(pro);
         } catch (Exception e) {

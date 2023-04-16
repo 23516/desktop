@@ -11,4 +11,65 @@ public class BugVo {
     private Date releaseTime; //发布时间
     private UserVo userVo; //用户
     private List<String> bugType; //bug类型
+
+    /**
+     *
+     * @param bugTitle
+     * @param bugSolve
+     * @param releaseTime
+     * @param userVo
+     * @param bugType  String类型
+     */
+    public BugVo(String bugTitle, String bugSolve, Date releaseTime, UserVo userVo, String bugType) {
+        this.bugTitle = bugTitle;
+        this.bugSolve = bugSolve;
+        this.releaseTime = releaseTime;
+        this.userVo = userVo;
+        this.bugType.add(bugType);
+    }
+    public void addTechStack(String bugType){
+        this.bugType.add(bugType);
+    }
+
+    public String getBugTitle() {
+        return bugTitle;
+    }
+
+    public void setBugTitle(String bugTitle) {
+        this.bugTitle = bugTitle;
+    }
+
+    public String getBugSolve() {
+        return bugSolve;
+    }
+
+    public void setBugSolve(String bugSolve) {
+        this.bugSolve = bugSolve;
+    }
+
+    public Date getReleaseTime() {
+        return releaseTime;
+    }
+
+    public void setReleaseTime(Date releaseTime) {
+        this.releaseTime = releaseTime;
+    }
+
+    public UserVo getUserVo() {
+        return userVo;
+    }
+
+    public void setUserVo(UserVo userVo) {
+        this.userVo = userVo;
+    }
+
+    public List<String> getBugType() {
+        return bugType;
+    }
+
+    public void setBugType(List<String> bugType) {
+        this.bugType = bugType;
+    }
+
+
 }

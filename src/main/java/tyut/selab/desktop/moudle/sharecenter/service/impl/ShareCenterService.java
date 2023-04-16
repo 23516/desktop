@@ -2,17 +2,23 @@ package tyut.selab.desktop.moudle.sharecenter.service.impl;
 
 import tyut.selab.desktop.moudle.sharecenter.dao.IShareCenterDao;
 import tyut.selab.desktop.moudle.sharecenter.dao.impl.BugTypeDao;
+import tyut.selab.desktop.moudle.sharecenter.dao.impl.ShareCenterDao;
+import tyut.selab.desktop.moudle.sharecenter.domain.BugMessage;
 import tyut.selab.desktop.moudle.sharecenter.domain.BugType;
 import tyut.selab.desktop.moudle.sharecenter.domain.vo.BugVo;
 import tyut.selab.desktop.moudle.sharecenter.service.IShareCenterService;
+import tyut.selab.desktop.moudle.student.domain.User;
 import tyut.selab.desktop.moudle.student.domain.vo.UserVo;
 import tyut.selab.desktop.moudle.student.userdao.IUserDao;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Vector;
 
 public class ShareCenterService implements IShareCenterService{
-    private IShareCenterDao shareCenterDao;
+    private IShareCenterDao shareCenterDao = new ShareCenterDao();
     private BugTypeDao bugTypeDao = new BugTypeDao();
 
     private IUserDao userDao;
@@ -27,17 +33,92 @@ public class ShareCenterService implements IShareCenterService{
 
     @Override
     public List<BugVo> showBugInfo() {
-        return null;
+        try {
+            List<BugMessage> bugMessages = shareCenterDao.queryAllBugInfo();
+            List<BugVo> bugVoList = new Vector<>();
+
+            if (bugMessages.size()>=1){
+                BugMessage bugMessage = bugMessages.get(0);
+                BugVo BugVo = bugMessage.toBugVo();
+                bugVoList.add(BugVo);
+                for (int i = 1; i < bugMessages.size(); i++) {
+                    bugMessage = bugMessages.get(i);
+
+                    if(bugMessage.equals(bugMessages.get(i-1))){
+                        BugVo.addTechStack(bugMessage.getBugType());
+                    }else {
+                        BugVo = bugMessage.toBugVo();
+                        bugVoList.add(BugVo);
+                    }
+                }
+                return bugVoList;
+            } else {
+                return bugVoList;
+            }
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
     public List<BugVo> ShowBugInfo(List<String> bugType) {
-        return null;
+        try {
+            List<BugMessage> bugMessages = shareCenterDao.queryBugInfoByType(bugType);
+            List<BugVo> bugVoList = new Vector<>();
+
+            if (bugMessages.size()>=1){
+                BugMessage bugMessage = bugMessages.get(0);
+                BugVo BugVo = bugMessage.toBugVo();
+                bugVoList.add(BugVo);
+                for (int i = 1; i < bugMessages.size(); i++) {
+                    bugMessage = bugMessages.get(i);
+
+                    if(bugMessage.equals(bugMessages.get(i-1))){
+                        BugVo.addTechStack(bugMessage.getBugType());
+                    }else {
+                        BugVo = bugMessage.toBugVo();
+                        bugVoList.add(BugVo);
+                    }
+                }
+                return bugVoList;
+            } else {
+                return bugVoList;
+            }
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
     public List<BugVo> ShowBugInfo(UserVo userVo) {
-        return null;
+        try {
+            User user = new User();
+            user.setStudentNumber(userVo.getStudentNumber());
+
+            List<BugMessage> bugMessages = shareCenterDao.ShowBugInfo(user);
+            List<BugVo> bugVoList = new Vector<>();
+
+            if (bugMessages.size()>=1){
+                BugMessage bugMessage = bugMessages.get(0);
+                BugVo BugVo = bugMessage.toBugVo();
+                bugVoList.add(BugVo);
+                for (int i = 1; i < bugMessages.size(); i++) {
+                    bugMessage = bugMessages.get(i);
+
+                    if(bugMessage.equals(bugMessages.get(i-1))){
+                        BugVo.addTechStack(bugMessage.getBugType());
+                    }else {
+                        BugVo = bugMessage.toBugVo();
+                        bugVoList.add(BugVo);
+                    }
+                }
+                return bugVoList;
+            } else {
+                return bugVoList;
+            }
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
