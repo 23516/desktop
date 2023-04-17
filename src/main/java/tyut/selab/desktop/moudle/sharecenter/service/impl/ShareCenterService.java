@@ -121,18 +121,22 @@ public class ShareCenterService implements IShareCenterService{
         }
     }
 
+    // TODO
     @Override
     public int insertBugInfo(BugVo bugVo) {
         return 0;
     }
 
+    // TODO
     @Override
     public int updateBugInfo(BugVo newBugVo, BugVo oldBugVo) {
         return 0;
     }
 
+    // TODO
     @Override
     public int deleteBugInfo(BugVo bugVo) {
+
         return 0;
     }
 

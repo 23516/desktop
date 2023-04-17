@@ -39,12 +39,13 @@ public class BugMessage {
     public BugMessage() {
     }
 
-    public BugMessage(Integer bugId, String bugTitle, String bugSolve, Date releaseTime, User user) {
+    public BugMessage(Integer bugId, String bugTitle, String bugSolve, Date releaseTime, User user, String bugType) {
         this.bugId = bugId;
         this.bugTitle = bugTitle;
         this.bugSolve = bugSolve;
         this.releaseTime = releaseTime;
         this.user = user;
+        this.bugType = bugType;
     }
 
     public String getBugType() {

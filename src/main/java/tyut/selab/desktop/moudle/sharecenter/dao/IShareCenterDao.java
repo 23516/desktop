@@ -34,7 +34,7 @@ public interface IShareCenterDao {
      * @param bugMessage
      * @return
      */
-    int insertBugInfo(BugMessage bugMessage) throws SQLException;
+    int insertBugInfo(BugMessage bugMessage) throws Exception;
 
     /**
      * 修改

@@ -6,7 +6,6 @@ import tyut.selab.desktop.moudle.student.domain.Role;
 import tyut.selab.desktop.moudle.student.domain.User;
 import tyut.selab.desktop.utils.MysqlConnect;
 
-import java.lang.reflect.Field;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -39,20 +38,6 @@ public class ShareCenterDao extends BaseDao implements IShareCenterDao {
         ResultSet resultSet = ps.executeQuery();
         ArrayList<BugMessage> list = new ArrayList<>();
 
-        /**
-         * //进行结果集解析
-         * 1.游标移动
-         *     resultSet内部包含一个游标，指向当前行数据
-         *     默认指向第0行，调用next()方法向后移动一行
-         *     可以用while(resultSet.next()){获取每一行数据}
-         * 2.获取游标指向的行的列的数据
-         * resultSet.get类型(String columnlabel | int columnIndex);
-         *  columnlabel:
-         *      列名 select *
-         *      如果有别名写别名 select id as aid
-         *   columnIndex:
-         *      列的下角标，从左向右，从1开始
-         */
         while(resultSet.next()){
             //封装对象
             bugMessage = new BugMessage();
@@ -219,10 +204,19 @@ public class ShareCenterDao extends BaseDao implements IShareCenterDao {
 
     // TODO
     @Override
-    public int insertBugInfo(BugMessage bugMessage) throws SQLException {
-        String sql = "insert into user_bug_message values(null,?,?,?,?);";
-
-        return 0;
+    public int insertBugInfo(BugMessage bugMessage) throws Exception {
+        // 插入 user_bug_message 表数据
+        String sql1 = "insert into user_bug_message values(null,?,?,?,?);";
+        int i = executeUpdate(sql1, bugMessage.getBugTitle(), bugMessage.getBugSolve(),
+                bugMessage.getReleaseTime(), bugMessage.getUser().getStudentNumber());
+        // 查到 bug_type 对应的 id
+        int bugTypeId = queryBugTypeId(bugMessage.getBugType());
+        // 查到 bug 对应的 id
+        // todo
+        // 插入 user_bug_type 表数据
+        String sql4 = "insert into user_bug_type values(?,?);";
+        int j = executeUpdate(sql4, bugTypeId, );
+        return i+j;
     }
 
     // TODO
@@ -233,10 +227,37 @@ public class ShareCenterDao extends BaseDao implements IShareCenterDao {
         return 0;
     }
 
-    // TODO
     @Override
     public int deleteBugInfo(BugMessage bugMessage) throws SQLException {
-        String sql = "delete from  where ";
-        return executeUpdate(sql,bugMessage.getBugId());
+        // 删 user_bug_message 表数据
+        String sql1 = "DELETE FROM user_bug_message WHERE bug_id = ?;" ;
+        int i = executeUpdate(sql1, (int) bugMessage.getBugId());
+        // 删 user_bug_type 表数据
+        String sql2 = "DELETE FROM user_bug_type WHERE bug_id = ?;" ;
+        int j = executeUpdate(sql2, (int) bugMessage.getBugId());
+        return i+j;
+    }
+    private int queryBugTypeId(String bugType) throws SQLException {
+        String sql = "SELECT * FROM bug_type WHERE type = ?;";
+        //获取连接
+        Connection connection = MysqlConnect.getConnection();
+        //创建PreparedStatement对象，对sql预编译
+        PreparedStatement ps = connection.prepareStatement(sql);
+        //占位符赋值
+        ps.setObject(1,bugType);
+        ResultSet resultSet = ps.executeQuery();
+        while(resultSet.next()){
+            int bug_type_id = resultSet.getInt("type_id");
+            return bug_type_id;
+        }
+        resultSet.close();
+        ps.close();
+        //这里检查下是否开启事务,开启不关闭连接,业务方法关闭!
+        //没有开启事务的话,直接回收关闭即可!
+        if (connection.getAutoCommit()) {
+            //回收
+            MysqlConnect.free();
+        }
+        return 0;
     }
 }

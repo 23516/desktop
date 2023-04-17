@@ -4,6 +4,13 @@ public class BugType {
     private Integer bugTypeId;
     private String bugType;
 
+    public BugType() {
+    }
+
+    public BugType(String bugType) {
+        this.bugType = bugType;
+    }
+
     public Integer getBugTypeId() {
         return bugTypeId;
     }
