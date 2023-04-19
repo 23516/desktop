@@ -15,27 +15,20 @@ import java.util.Date;
 import java.util.List;
 
 public class Test {
-    public static void main(String[] args) {
-//        // 插入Java技术栈
-//        BugTypeDao bugTypeDao = new BugTypeDao();
-//        try {
-////            bugTypeDao.insertBugType(new BugType("java"));
-//            bugTypeDao.queryAllType();
-//        } catch (SQLException e) {
-//            throw new RuntimeException(e);
-//        } catch (Exception e) {
-//            throw new RuntimeException(e);
-//        }
-
-        ShareCenterDao shareCenterDao = new ShareCenterDao();
+    public static void main(String[] args) throws SQLException {
         User user = new User();
         user.setStudentNumber(123);
-        BugMessage bugMessage = new BugMessage(22,"bug1","solve",new Date(),user,"java");
-        try {
-            System.out.println(shareCenterDao.insertBugInfo(bugMessage));
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
+        BugMessage bugMessage = new BugMessage(22,"tyu","solve",new Date(),user,"java");
+
+        ShareCenterController controller = new ShareCenterController();
+//        BugVo bugVo = new BugVo("bug1","solve",new Date(),bugMessage.getUserVo()
+//                ,"java");
+//        bugVo.addBugType("html");
+//        BugVo newBugVo = new BugVo("bug2","soooo",new Date(),bugMessage.getUserVo()
+//                ,"");
+//        controller.insertBugInfo(bugVo);
+//        controller.deleteBugInfo(bugVo);
+//        controller.updateBugInfo(newBugVo,bugVo);
 
     }
 }

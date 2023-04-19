@@ -45,7 +45,7 @@ public class ShareCenterService implements IShareCenterService{
                     bugMessage = bugMessages.get(i);
 
                     if(bugMessage.equals(bugMessages.get(i-1))){
-                        BugVo.addTechStack(bugMessage.getBugType());
+                        BugVo.addBugType(bugMessage.getBugType());
                     }else {
                         BugVo = bugMessage.toBugVo();
                         bugVoList.add(BugVo);
@@ -74,7 +74,7 @@ public class ShareCenterService implements IShareCenterService{
                     bugMessage = bugMessages.get(i);
 
                     if(bugMessage.equals(bugMessages.get(i-1))){
-                        BugVo.addTechStack(bugMessage.getBugType());
+                        BugVo.addBugType(bugMessage.getBugType());
                     }else {
                         BugVo = bugMessage.toBugVo();
                         bugVoList.add(BugVo);
@@ -105,38 +105,85 @@ public class ShareCenterService implements IShareCenterService{
                 for (int i = 1; i < bugMessages.size(); i++) {
                     bugMessage = bugMessages.get(i);
 
-                    if(bugMessage.equals(bugMessages.get(i-1))){
-                        BugVo.addTechStack(bugMessage.getBugType());
+                    if(bugMessage.getBugTitle().equals(bugMessages.get(i-1).getBugTitle())){
+                        BugVo.addBugType(bugMessage.getBugType());
                     }else {
                         BugVo = bugMessage.toBugVo();
                         bugVoList.add(BugVo);
                     }
                 }
-                return bugVoList;
-            } else {
-                return bugVoList;
             }
+            return bugVoList;
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
 
-    // TODO
     @Override
     public int insertBugInfo(BugVo bugVo) {
+        User user = new User();
+        user.setStudentNumber(bugVo.getUserVo().getStudentNumber());
+        BugMessage bugMessage = new BugMessage(0, bugVo.getBugTitle(), bugVo.getBugSolve(),
+                bugVo.getReleaseTime(), user, bugVo.getBugType().get(0));
+        try {
+            shareCenterDao.insertBugInfo(bugMessage);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        if (bugVo.getBugType().size()>1){
+            for (int i = 1; i < bugVo.getBugType().size(); i++) {
+                bugMessage = new BugMessage();
+                bugMessage.setBugType(bugVo.getBugType().get(i));
+                try {
+                    shareCenterDao.insertBugInfo(bugMessage);
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        }
         return 0;
     }
 
-    // TODO
     @Override
     public int updateBugInfo(BugVo newBugVo, BugVo oldBugVo) {
+        User user = new User();
+        user.setStudentNumber(oldBugVo.getUserVo().getStudentNumber());
+        BugMessage oldBugMessage = new BugMessage(0, oldBugVo.getBugTitle(), oldBugVo.getBugSolve(),
+                oldBugVo.getReleaseTime(), user, oldBugVo.getBugType().get(0));
+        BugMessage newBugMessage = new BugMessage(0, newBugVo.getBugTitle(), newBugVo.getBugSolve(),
+                newBugVo.getReleaseTime(), user, newBugVo.getBugType().get(0));
+        try {
+            shareCenterDao.updateBugInfo(newBugMessage, oldBugMessage);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        if (newBugVo.getBugType().size()>1){
+            for (int i = 1; i < newBugVo.getBugType().size(); i++) {
+                newBugMessage= new BugMessage();
+                newBugMessage.setBugTitle(newBugVo.getBugTitle());
+                newBugMessage.setUser(user);
+                newBugMessage.setBugType(newBugVo.getBugType().get(i));
+                try {
+                    shareCenterDao.updateBugInfo(newBugMessage, oldBugMessage);
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        }
         return 0;
     }
 
-    // TODO
     @Override
     public int deleteBugInfo(BugVo bugVo) {
-
+        User user = new User();
+        user.setStudentNumber(bugVo.getUserVo().getStudentNumber());
+        BugMessage bugMessage = new BugMessage(0, bugVo.getBugTitle(), bugVo.getBugSolve(),
+                bugVo.getReleaseTime(), user, bugVo.getBugType().get(0));
+        try {
+            shareCenterDao.deleteBugInfo(bugMessage);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
         return 0;
     }
 
