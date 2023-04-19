@@ -27,7 +27,9 @@ public class ShareCenterController implements IShareCenterController {
      * @param userVo
      */
     public ShareCenterController(UserVo userVo) {
+
         if("用户".equals(userVo.getDuty())){
+            System.out.println("6");
             ui.getFrame().setJMenuBar(ui.getjMenuBar());
             ui.getjMenuBar().add(ui.getjMenu());
             ui.getjMenu().add(ui.getjMenuItem1());

@@ -6,6 +6,8 @@ import tyut.selab.desktop.moudle.sharecenter.dao.impl.ShareCenterDao;
 import tyut.selab.desktop.moudle.sharecenter.domain.BugMessage;
 import tyut.selab.desktop.moudle.sharecenter.domain.BugType;
 import tyut.selab.desktop.moudle.sharecenter.domain.vo.BugVo;
+import tyut.selab.desktop.moudle.sharecenter.service.impl.ShareCenterService;
+import tyut.selab.desktop.moudle.student.domain.Role;
 import tyut.selab.desktop.moudle.student.domain.User;
 import tyut.selab.desktop.moudle.student.domain.vo.UserVo;
 
@@ -16,17 +18,25 @@ import java.util.List;
 
 public class Test {
     public static void main(String[] args) throws SQLException {
-        User user = new User();
-        user.setStudentNumber(123);
-        BugMessage bugMessage = new BugMessage(22,"tyu","solve",new Date(),user,"java");
+//        User user = new User();
+//        user.setStudentNumber(123);
+//        user.setRole(new Role("用户"));
+//
+//        BugMessage bugMessage = new BugMessage(22,"tyu","solve",new Date(),user,"java");
+//        System.out.println(bugMessage.getUserVo().getDuty());
+        UserVo userVo = new UserVo();
+        userVo.setDuty("用户");
+        ShareCenterController controller = new ShareCenterController(userVo);
 
-        ShareCenterController controller = new ShareCenterController(bugMessage.getUserVo());
         controller.showBugInfo();
-        controller.ShowBugInfo(bugMessage.getUserVo());
+        controller.ShowBugInfo(userVo);
         controller.queryAllType();
         controller.insertBugInfo(null);
         controller.getUi().init();
 
+//        ShareCenterService shareCenterService = new ShareCenterService();
+//        List<BugVo> bugVoList = shareCenterService.showBugInfo();
+//        System.out.println(bugVoList);
 
 //        BugVo bugVo = new BugVo("bug1","solve",new Date(),bugMessage.getUserVo()
 //                ,"java");

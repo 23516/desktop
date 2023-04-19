@@ -36,7 +36,9 @@ public class ShareCenterService implements IShareCenterService{
         try {
             List<BugMessage> bugMessages = shareCenterDao.queryAllBugInfo();
             List<BugVo> bugVoList = new Vector<>();
-
+            if(bugMessages.size()>0){
+                bugVoList.add(bugMessages.get(0).toBugVo());
+            }
             if (bugMessages.size()>=1){
                 BugMessage bugMessage = bugMessages.get(0);
                 BugVo BugVo = bugMessage.toBugVo();
