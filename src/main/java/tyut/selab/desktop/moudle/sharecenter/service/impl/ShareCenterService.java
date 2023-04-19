@@ -7,7 +7,9 @@ import tyut.selab.desktop.moudle.sharecenter.service.IShareCenterService;
 import tyut.selab.desktop.moudle.student.domain.vo.UserVo;
 import tyut.selab.desktop.moudle.student.userdao.IUserDao;
 
+import java.util.Date;
 import java.util.List;
+import java.util.Vector;
 
 public class ShareCenterService implements IShareCenterService{
     private IShareCenterDao shareCenterDao;
@@ -20,12 +22,13 @@ public class ShareCenterService implements IShareCenterService{
 
     @Override
     public List<BugVo> showBugInfo() {
+
         return null;
     }
 
     @Override
     public List<BugVo> ShowBugInfo(List<String> bugType) {
-        return null;
+      return null;
     }
 
     @Override
@@ -62,4 +65,6 @@ public class ShareCenterService implements IShareCenterService{
     public int delete(BugType bugType) {
         return 0;
     }
+
+
 }

@@ -2,7 +2,7 @@ package tyut.selab.desktop.moudle.login.controller;
 
 import tyut.selab.desktop.moudle.login.domain.LoginLog;
 import tyut.selab.desktop.moudle.student.domain.User;
-import tyut.selab.desktop.moudle.student.domain.vo.UserRegisterVo;
+//import tyut.selab.desktop.moudle.student.domain.vo.UserRegisterVo;
 
 import javax.xml.crypto.Data;
 import java.util.List;
@@ -18,7 +18,7 @@ public interface ILoginController {
      * 注册
      * @return
      */
-    String register(UserRegisterVo user);
+//    String register(UserRegisterVo user);
 
     /**
      * 自动登录

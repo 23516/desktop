@@ -17,7 +17,7 @@ public class LoginController implements ILoginController{
         return null;
     }
 
-    @Override
+//    @Override
     public String register(UserRegisterVo user) {
         return null;
     }
