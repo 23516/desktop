@@ -1,6 +1,5 @@
 package tyut.selab.desktop.moudle.student.domain.vo;
 
-
 public class UserRegisterVo {
     private Integer studentNumber;  //用户学号
     private Integer password; //密码

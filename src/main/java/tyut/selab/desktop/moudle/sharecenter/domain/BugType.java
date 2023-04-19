@@ -4,10 +4,17 @@ public class BugType {
     private Integer bugTypeId;
     private String bugType;
 
-    public BugType(Integer bugTypeId, String bugType) {
-        this.bugTypeId = bugTypeId;
-        this.bugType = bugType;
+    public BugType() {
     }
+
+    @Override
+    public String toString() {
+        return "BugType{" +
+                "bugTypeId=" + bugTypeId +
+                ", bugType='" + bugType + '\'' +
+                '}';
+    }
+
 
     public Integer getBugTypeId() {
         return bugTypeId;

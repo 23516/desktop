@@ -20,7 +20,7 @@ public interface IShareCenterDao {
      * @param bugType
      * @return
      */
-    List<BugMessage> queryBugInfoByType(List<String> bugType);
+    List<BugMessage> queryBugInfoByType(List<String> bugType) throws SQLException;
 
     /**
      * 根据用户查询
@@ -34,7 +34,7 @@ public interface IShareCenterDao {
      * @param bugMessage
      * @return
      */
-    int insertBugInfo(BugMessage bugMessage) throws SQLException;
+    int insertBugInfo(BugMessage bugMessage) throws Exception;
 
     /**
      * 修改
@@ -42,7 +42,7 @@ public interface IShareCenterDao {
      * @param oldBugMessage
      * @return
      */
-    int updateBugInfo(BugMessage newBugMessage,BugMessage oldBugMessage);
+    int updateBugInfo(BugMessage newBugMessage,BugMessage oldBugMessage) throws SQLException;
 
     /**
      * 删除
