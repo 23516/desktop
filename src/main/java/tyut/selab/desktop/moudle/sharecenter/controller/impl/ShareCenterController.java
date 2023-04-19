@@ -19,7 +19,7 @@ import java.util.List;
 
 public class ShareCenterController implements IShareCenterController {
 
-    private IShareCenterService shareCenterService;
+    private IShareCenterService shareCenterService = new ShareCenterService();
     private boundary ui = new boundary();
 
     /**
@@ -60,18 +60,12 @@ public class ShareCenterController implements IShareCenterController {
     @Override
     public List<BugType> queryAllType() {
         //service层应给的bugType
-        Vector<String> bugType = new Vector<>();
-        bugType.add("javascript");
-        bugType.add("java");
-        bugType.add("python");
-        bugType.add("php");
-        int[] bugTypeIds = new int[]{1,2,3,4};
-        List<BugType> bugTypes = new Vector<>();
-        for (int i = 0; i < bugTypeIds.length; i++) {
-            BugType bugType1 = new BugType(bugTypeIds[i],bugType.get(i));
-            bugTypes.add(bugType1);
+        List<BugType> bugTypeList = shareCenterService.queryAllType();
+        List<String> bugType = new ArrayList<String>();
+        for(int i = 0; i < bugTypeList.size(); i++) {
+            bugType.add(bugTypeList.get(i).getBugType());
         }
-       ShowBugInfo(bugType);
+        ShowBugInfo(bugType);
 
 
         ui.getStackCheck().add(ui.getOptions(),BorderLayout.NORTH);
@@ -102,22 +96,7 @@ public class ShareCenterController implements IShareCenterController {
         /**
          * 传入list集合替代bugVos即可。
          */
-        List<String> bugType = new Vector<>();
-        bugType.add("java");
-        bugType.add("javaweb");
-        List<BugVo> bugVos = new Vector<>();
-        BugVo bugVo1 = new BugVo(boundary.errorLineFeed("定义用于将 JAR 文件转换为压缩包200 文件的工具 并将打包文件转换为 JAR 文件，包括 pack200 和 unpack200 工具。"), boundary.saveLineFeed("The server responded with an error while attempting to authenticate (404)"), new Date(), new UserVo("WZY"), bugType);
-        BugVo bugVo2 = new BugVo(boundary.errorLineFeed("义用于将 JAR 文件转换为压缩包200 文件的工具 并将打包文件转换为 JAR 文件，包括 pack200 和 unpack200 工具。"), boundary.saveLineFeed("The server responded with an error while attempting to authenticate (404)"), new Date(), new UserVo("WZY"), bugType);
-        BugVo bugVo3 = new BugVo(boundary.errorLineFeed("用于将 JAR 文件转换为压缩包200 文件的工具 并将打包文件转换为 JAR 文件，包括 pack200 和 unpack200 工具。"), boundary.saveLineFeed("The server responded with an error while attempting to authenticate (404)"), new Date(), new UserVo("WZY"), bugType);
-        BugVo bugVo4 = new BugVo(boundary.errorLineFeed("于将 JAR 文件转换为压缩包200 文件的工具 并将打包文件转换为 JAR 文件，包括 pack200 和 unpack200 工具。"), boundary.saveLineFeed("The server responded with an error while attempting to authenticate (404)"), new Date(), new UserVo("WZY"), bugType);
-        BugVo bugVo5 = new BugVo(boundary.errorLineFeed("将 JAR 文件转换为压缩包200 文件的工具 并将打包文件转换为 JAR 文件，包括 pack200 和 unpack200 工具。"), boundary.saveLineFeed("The server responded with an error while attempting to authenticate (404)"), new Date(), new UserVo("WZY"), bugType);
-        BugVo bugVo6 = new BugVo(boundary.errorLineFeed(" JAR 文件转换为压缩包200 文件的工具 并将打包文件转换为 JAR 文件，包括 pack200 和 unpack200 工具。"), boundary.saveLineFeed("The server responded with an error while attempting to authenticate (404)"), new Date(), new UserVo("WZY"), bugType);
-        bugVos.add(bugVo1);
-        bugVos.add(bugVo2);
-        bugVos.add(bugVo3);
-        bugVos.add(bugVo4);
-        bugVos.add(bugVo5);
-        bugVos.add(bugVo6);
+        List<BugVo> bugVos = shareCenterService.showBugInfo();
 //        new ShareCenterService().showBugInfo()
 
         ui.getDefaultListModel().addAll(bugVos);
@@ -230,31 +209,10 @@ public class ShareCenterController implements IShareCenterController {
                 });
 
         /**
-         * 管理员<按用户选择>功能
+         * 管理员和用户通过点击用户查看用户信息功能
          */
-                ui.getjMenuItem6().addActionListener(new ActionListener() {
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-                        String searchInput = JOptionPane.showInputDialog(ui.getFrame(), "请输入你想搜索用户的用户名", "search message", JOptionPane.INFORMATION_MESSAGE);
-                        if("123".equals(searchInput)){
 
-                            List<String> bugType = new Vector<>();
-                            bugType.add("js");
-                            List<BugVo> vos = new Vector<>();
 
-                            vos.add(new BugVo("(404)", " with an error while attempting to authenticate (404)", new Date(), new UserVo("555"), bugType));
-                            vos.add(new BugVo("12345334(404)", " with an error while attempting to authenticate (404)", new Date(), new UserVo("WZY"), bugType));
-                            vos.add(new BugVo("12345334(404)", " with an error while attempting to authenticate (404)", new Date(), new UserVo("WZY"), bugType));
-                            ui.getDefaultListModel().removeAllElements();
-
-                            ui.getDefaultListModel().addAll(vos);
-                            ui.setDefaultJlist(vos);
-                            ui.setList(vos);
-
-                        }
-
-                    }
-                });
         return null;
     }
 
@@ -328,6 +286,7 @@ public class ShareCenterController implements IShareCenterController {
 
     @Override
     public int updateBugType(BugType newBugType, BugType oldBugType) {
+
         return 0;
     }
 

@@ -15,6 +15,7 @@ import java.awt.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.net.URL;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 
@@ -276,7 +277,8 @@ public class boundary{
         bugVoJList.setSelectedIndex(0);
         bugVoJList.setSelectedValue(bugVos.get(0),true);
         adminShow.setText(bugVos.get(0).getUserVo().getName());
-        timeShow.setText(bugVos.get(0).getReleaseTime());
+        SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        timeShow.setText(sdf.format(bugVos.get(0).getReleaseTime()));
         informationShow.setText(bugVos.get(0).getBugTitle());
         StringBuffer stackBuffer = new StringBuffer();
         for(int i = 0;i<=bugVos.get(0).getBugType().size()-1;i++){
@@ -319,7 +321,8 @@ public class boundary{
 
 //                展示报错信息，用户，时间.
                     adminShow.setText(informations.get(selectedIndex).getUserVo().getName());
-                    timeShow.setText(informations.get(selectedIndex).getReleaseTime());
+                    SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                    timeShow.setText(sdf.format(informations.get(selectedIndex).getReleaseTime()));
                     informationShow.setText(informations.get(selectedIndex).getBugTitle());
                     StringBuffer stackBuffer = new StringBuffer();
                     for(int i = 0;i<=informations.get(selectedIndex).getBugType().size()-1;i++){
@@ -604,13 +607,9 @@ public class boundary{
 
 
     public static void main(String[] args) {
-        UserVo userVo = new UserVo("123", "用户");
-        ShareCenterController controller = new ShareCenterController(userVo);
-        controller.showBugInfo();
-        controller.ShowBugInfo(userVo);
-        controller.queryAllType();
-        controller.insertBugInfo(null);
-        controller.getUi().init();
+
+
+
     }
 
 

@@ -20,7 +20,14 @@ public class Test {
         user.setStudentNumber(123);
         BugMessage bugMessage = new BugMessage(22,"tyu","solve",new Date(),user,"java");
 
-        ShareCenterController controller = new ShareCenterController();
+        ShareCenterController controller = new ShareCenterController(bugMessage.getUserVo());
+        controller.showBugInfo();
+        controller.ShowBugInfo(bugMessage.getUserVo());
+        controller.queryAllType();
+        controller.insertBugInfo(null);
+        controller.getUi().init();
+
+
 //        BugVo bugVo = new BugVo("bug1","solve",new Date(),bugMessage.getUserVo()
 //                ,"java");
 //        bugVo.addBugType("html");
