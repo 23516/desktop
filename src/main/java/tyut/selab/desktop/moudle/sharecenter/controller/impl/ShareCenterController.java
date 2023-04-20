@@ -287,6 +287,7 @@ public class ShareCenterController implements IShareCenterController {
                 }
                 bugVo.setBugTitle(error);
                 bugVo.setBugSolve(save);
+                showBugInfo();
             }
         });
         return 0;
