@@ -56,7 +56,7 @@ public class boundary{
     // 约束
     GridBagConstraints c = null;
     private JPanel errorShow = null;
-    private JLabel adminShow = null;
+    private JButton adminShow = null;
     private JLabel timeShow = null;
     private JLabel informationShow = null;
     private JLabel stackShow = null;
@@ -86,6 +86,9 @@ public class boundary{
     private JButton deleteJButton = null;
     private JButton updateJButton = null;
 
+    //添加报错信息
+    private JFrame addErrorShow = null;
+
 
 
     public boundary() {
@@ -110,7 +113,7 @@ public class boundary{
         this.gridBag = new GridBagLayout();
         this.c = null;
         this.errorShow = new JPanel(gridBag);
-        this.adminShow = new JLabel();
+        this.adminShow = new JButton();
         this.timeShow = new JLabel();
         this.informationShow = new JLabel();
         this.stackShow = new JLabel();
@@ -133,6 +136,9 @@ public class boundary{
         this.insertJButton = new JButton("insert");
         this.deleteJButton = new JButton("delete");
         this.updateJButton = new JButton("update");
+
+
+
     }
 
     //一些供外部使用的get方法
@@ -189,6 +195,7 @@ public class boundary{
         return stackCheck;
     }
 
+
     public JPanel getOptions() {
         return options;
     }
@@ -215,6 +222,14 @@ public class boundary{
 
     public JButton getUpdateJButton() {
         return updateJButton;
+    }
+
+    public JButton getAdminShow() {
+        return adminShow;
+    }
+
+    public JList<BugVo> getBugVoJList() {
+        return bugVoJList;
     }
 
     /**
@@ -296,7 +311,8 @@ public class boundary{
         saveInformation.setText(bugVos.get(0).getBugSolve());
 
         beautifyErrorShow();
-        beautifysaveShow();
+        beautifySaveShow();
+        beautifyAdminShow();
 
     }
 
@@ -340,7 +356,8 @@ public class boundary{
                     saveInformation.setText(informations.get(selectedIndex).getBugSolve());
 
                     beautifyErrorShow();
-                    beautifysaveShow();
+                    beautifySaveShow();
+                    beautifyAdminShow();
                 }
             }
 
@@ -471,12 +488,22 @@ public class boundary{
     /**
      * 美化saveShow里面的组件
      */
-    public void beautifysaveShow(){
+    public void beautifySaveShow(){
         Border etchedRaisedBorder4 = BorderFactory.createEtchedBorder(EtchedBorder.RAISED);
         Border lineBorder4 = BorderFactory.createLineBorder(Color.cyan,3);
         Border saveBorder = BorderFactory.createCompoundBorder(etchedRaisedBorder4, lineBorder4);
         saveInformation.setBorder(saveBorder);
     }
+
+
+    /**
+     * 美化adminShow
+     */
+    public void beautifyAdminShow(){
+        adminShow.setBorderPainted(false);
+    }
+
+
 
 
     /**
@@ -605,12 +632,6 @@ public class boundary{
         return jlistStringBuffer.toString();
     }
 
-
-    public static void main(String[] args) {
-
-
-
-    }
 
 
 }

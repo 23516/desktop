@@ -67,7 +67,7 @@ public class ShareCenterController implements IShareCenterController {
         for(int i = 0; i < bugTypeList.size(); i++) {
             bugType.add(bugTypeList.get(i).getBugType());
         }
-        ShowBugInfo(bugType);
+//        ShowBugInfo(bugType);
 
 
         ui.getStackCheck().add(ui.getOptions(),BorderLayout.NORTH);
@@ -95,11 +95,8 @@ public class ShareCenterController implements IShareCenterController {
 
     @Override
     public List<BugVo> showBugInfo() {
-        /**
-         * 传入list集合替代bugVos即可。
-         */
+
         List<BugVo> bugVos = shareCenterService.showBugInfo();
-//        new ShareCenterService().showBugInfo()
 
         ui.getDefaultListModel().addAll(bugVos);
         ui.setDefaultJlist(bugVos);
@@ -111,7 +108,6 @@ public class ShareCenterController implements IShareCenterController {
                 ui.getDefaultListModel().addAll(bugVos);
                 ui.setDefaultJlist(bugVos);
                 ui.setList(bugVos);
-
             }
         });
         return null;
@@ -126,7 +122,7 @@ public class ShareCenterController implements IShareCenterController {
         jMenuItem.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                queryAllType();
                 ui.getStackCheck().setVisible(true);
                 ui.getButtons().removeAll();
                 ui.getButtons().add(ui.getSureJButton());
@@ -140,7 +136,7 @@ public class ShareCenterController implements IShareCenterController {
                     public void actionPerformed(ActionEvent e) {
                         List<String> bugType = new Vector<>();
                         for(int i = 0;i<ui.getCheckBoxes().length;i++){
-                            if(ui.getCheckBoxes()[1].isSelected()) {
+                            if(ui.getCheckBoxes()[i].isSelected()) {
                                 bugType.add(ui.getCheckBoxes()[i].getText());
                                 ui.getCheckBoxes()[i].setSelected(false);
                             }
@@ -149,6 +145,11 @@ public class ShareCenterController implements IShareCenterController {
                         /**
                          * 将bugType传给service，获取到对应技术栈的报错信息，然后显示
                          */
+                        List<BugVo> bugVos = shareCenterService.ShowBugInfo(bugType);
+                        ui.getDefaultListModel().clear();
+                        ui.getDefaultListModel().addAll(bugVos);
+                        ui.setDefaultJlist(bugVos);
+                        ui.setList(bugVos);
                     }
                 });
             }
@@ -173,6 +174,7 @@ public class ShareCenterController implements IShareCenterController {
         ui.getjMenuItem5().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                queryAllType();
                 ui.getButtons().removeAll();
                 ui.getButtons().add(ui.getInsertJButton());
                 ui.getButtons().add(ui.getUpdateJButton());
@@ -186,7 +188,7 @@ public class ShareCenterController implements IShareCenterController {
 
                 insertBugType(null);
                 delete(null);
-
+                updateBugType(null,null);
             }
         });
 
@@ -198,24 +200,54 @@ public class ShareCenterController implements IShareCenterController {
         /**
          * 用户的<我的>功能
          */
-                ui.getjMenuItem3().addActionListener(new ActionListener() {
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-
-                        String username = userVo.getName();
-                        List<BugVo> vos = new ShareCenterService().showBugInfo();
-                        ui.setDefaultJlist(vos);
-                        ui.setList(vos);
-
-                    }
-                });
+//                ui.getjMenuItem3().addActionListener(new ActionListener() {
+//                    @Override
+//                    public void actionPerformed(ActionEvent e) {
+//
+//                        String username = userVo.getName();
+//                        List<BugVo> bugVos = new ShareCenterService().showBugInfo();
+//                        ui.getDefaultListModel().clear();
+//                        ui.getDefaultListModel().addAll(bugVos);
+//                        ui.setDefaultJlist(bugVos);
+//                        ui.setList(bugVos);
+//
+//                    }
+//                });
 
         /**
          * 管理员和用户通过点击用户查看用户信息功能
          */
+//        ui.getAdminShow().addActionListener(new ActionListener() {
+//            @Override
+//            public void actionPerformed(ActionEvent e) {
+//                int selectedIndex = 0;
+//                selectedIndex = ui.getBugVoJList().getSelectedIndex();
+//
+//            }
+//        });
 
 
         return null;
+    }
+
+    public String inputInformation(String s){
+
+        JFrame frame=  new JFrame(s);   //创建Frame窗口
+        JPanel jp=new JPanel();    //创建一个JPanel对象
+        JTextArea jta=new JTextArea("请输入内容",7,30);
+        jta.setLineWrap(true);    //设置文本域中的文本为自动换行
+        jta.setForeground(Color.BLACK);    //设置组件的背景色
+        jta.setFont(new Font("楷体",Font.BOLD,16));    //修改字体样式
+        jta.setBackground(Color.YELLOW);    //设置按钮背景色
+        JScrollPane jsp=new JScrollPane(jta);    //将文本域放入滚动窗口
+        Dimension size=jta.getPreferredSize();    //获得文本域的首选大小
+        jsp.setBounds(110,90,size.width,size.height);
+        jp.add(jsp);    //将JScrollPane添加到JPanel容器中
+        frame.add(jp);    //将JPanel容器添加到JFrame容器中
+        frame.setBackground(Color.LIGHT_GRAY);
+        frame.setSize(400,200);    //设置JFrame容器的大小
+        frame.setVisible(true);
+        return jta.getText();
     }
 
     @Override
@@ -223,27 +255,32 @@ public class ShareCenterController implements IShareCenterController {
         ui.getjMenuItem2().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //添加功能
-                String addInput1 = JOptionPane.showInputDialog(ui.getFrame(), "请输入你想提交的技术栈", "stack message", JOptionPane.INFORMATION_MESSAGE);
-                if(addInput1.length()>0){
+                //选择技术栈
+                List<String> bugType = bugVo.getBugType();
+                queryAllType();
+                ui.getStackCheck().setVisible(true);
+                ui.getButtons().removeAll();
+                ui.getButtons().add(ui.getSureJButton());
+                ui.getStackCheck().pack();
 
-                }else{
-                    JOptionPane.showMessageDialog(ui.getFrame(), "技术栈不能为空", "消息对话框", JOptionPane.WARNING_MESSAGE);
-                   return;
-                }
-                String addInput2 = JOptionPane.showInputDialog(ui.getFrame(), "请输入你想提交的错误信息", "error message", JOptionPane.INFORMATION_MESSAGE);
-                if(addInput2.length()>0){
+                ui.getSureJButton().addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        for(int i = 0;i<ui.getCheckBoxes().length;i++){
+                            if(ui.getCheckBoxes()[i].isSelected()) {
+                                bugType.add(ui.getCheckBoxes()[i].getText());
+                                ui.getCheckBoxes()[i].setSelected(false);
+                            }
+                        }
+                        ui.getStackCheck().setVisible(false);
+                    }
+                });
+                bugVo.setBugType(bugType);
 
-                }else{
-                    JOptionPane.showMessageDialog(ui.getFrame(), "错误信息不能为空", "消息对话框", JOptionPane.WARNING_MESSAGE);
-                    return;
-                }
-                String addInput3 = JOptionPane.showInputDialog(ui.getFrame(), "请输入解决方案(可以选择不提交)", "solution", JOptionPane.INFORMATION_MESSAGE);
-                if(addInput3.length()>0){
+                //报错信息
+                inputInformation("add error");
 
-                }else{
-
-                }
+                inputInformation("add save");
             }
         });
         return 0;
@@ -281,6 +318,8 @@ public class ShareCenterController implements IShareCenterController {
                 /**
                  * 还需将新添加的技术栈通过service保存
                  */
+                bugType.setBugType(insertInput);
+                shareCenterService.insertBugType(bugType);
             }
         });
         return 0;
@@ -288,7 +327,22 @@ public class ShareCenterController implements IShareCenterController {
 
     @Override
     public int updateBugType(BugType newBugType, BugType oldBugType) {
-
+        ui.getUpdateJButton().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                for(int i = 0;i<ui.getCheckBoxes().length-1;i++){
+                    if(ui.getCheckBoxes()[i].isSelected()) {
+                        oldBugType.setBugType(ui.getCheckBoxes()[i].getText());
+                        String addInput1 = JOptionPane.showInputDialog(ui.getFrame(), "请输入你想更新的技术栈", "update message", JOptionPane.INFORMATION_MESSAGE);
+                        if(addInput1 != null){
+                            newBugType.setBugType(addInput1);
+                            ui.getCheckBoxes()[i].setText(addInput1);
+                        }
+                    }
+                    shareCenterService.updateBugType(newBugType, oldBugType);
+                }
+            }
+        });
         return 0;
     }
 
@@ -297,13 +351,17 @@ public class ShareCenterController implements IShareCenterController {
         ui.getDeleteJButton().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                List<BugType> bugTypeList = new Vector<>();
                 List deleteList = new ArrayList();
-                System.out.println(ui.getCheckBoxes().length);
                 for(int i = 0;i<ui.getCheckBoxes().length-1;i++){
                     if(ui.getCheckBoxes()[i].isSelected()) {
                         deleteList.add(i);
+                        BugType bugType1 = new BugType();
+                        bugType1.setBugType(ui.getCheckBoxes()[i].getText());
+                        shareCenterService.delete(bugType1);
                     }
                 }
+
                 for(int i = 0;i<deleteList.size();i++){
                     ui.getOptions().remove(ui.getCheckBoxes()[(int) deleteList.get(i)]);
                     ui.getStackCheck().pack();

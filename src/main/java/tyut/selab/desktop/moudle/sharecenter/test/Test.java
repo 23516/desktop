@@ -15,6 +15,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Vector;
 
 public class Test {
     public static void main(String[] args) throws SQLException {
@@ -30,6 +31,7 @@ public class Test {
 
         controller.showBugInfo();
         controller.ShowBugInfo(userVo);
+        controller.ShowBugInfo(new Vector<String>());
         controller.queryAllType();
         controller.insertBugInfo(null);
         controller.getUi().init();
