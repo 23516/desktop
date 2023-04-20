@@ -33,7 +33,7 @@ public class Test {
         controller.ShowBugInfo(userVo);
         controller.ShowBugInfo(new Vector<String>());
         controller.queryAllType();
-        controller.insertBugInfo(null);
+        controller.insertBugInfo(new BugVo());
         controller.getUi().init();
 
 //        ShareCenterService shareCenterService = new ShareCenterService();

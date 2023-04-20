@@ -185,9 +185,9 @@ public class ShareCenterController implements IShareCenterController {
                 //不可改变大小
                 ui.getStackCheck().setResizable(false);
 
-                insertBugType(null);
-                delete(null);
-                updateBugType(null,null);
+                insertBugType(new BugType());
+                delete(new BugType());
+                updateBugType(new BugType(),new BugType());
             }
         });
 
