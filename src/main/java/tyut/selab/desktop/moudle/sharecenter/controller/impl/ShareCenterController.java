@@ -74,7 +74,8 @@ public class ShareCenterController implements IShareCenterController {
         ui.getStackCheck().setBounds(100,100,100,100);
   
         
-//        ui.getOptions().removeAll();
+        ui.getOptions().removeAll();
+
         for(int i = 0;i < bugType.size();i++) {
             JCheckBox jCheckBox = new JCheckBox(bugType.get(i));
             ui.getCheckBoxes()[i] = jCheckBox;
@@ -96,7 +97,7 @@ public class ShareCenterController implements IShareCenterController {
     public List<BugVo> showBugInfo() {
 
         List<BugVo> bugVos = shareCenterService.showBugInfo();
-
+        ui.getDefaultListModel().clear();
         ui.getDefaultListModel().addAll(bugVos);
         ui.setDefaultJlist(bugVos);
         ui.setList(bugVos);
@@ -134,7 +135,8 @@ public class ShareCenterController implements IShareCenterController {
                     @Override
                     public void actionPerformed(ActionEvent e) {
                         List<String> bugType = new Vector<>();
-                        for(int i = 0;i<ui.getCheckBoxes().length;i++){
+                        for(int i = 0;i<ui.getCheckBoxes().length-3;i++){
+                            System.out.println(ui.getCheckBoxes()[i]);
                             if(ui.getCheckBoxes()[i].isSelected()) {
                                 bugType.add(ui.getCheckBoxes()[i].getText());
                                 ui.getCheckBoxes()[i].setSelected(false);

@@ -328,7 +328,7 @@ public class boundary{
                     if(selectedIndex == -1){
                         selectedIndex = 0;
                     }
-
+                    System.out.println(informations.size());
 //                展示报错信息，用户，时间.
                     adminShow.setText(informations.get(selectedIndex).getUserVo().getName());
                     SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
