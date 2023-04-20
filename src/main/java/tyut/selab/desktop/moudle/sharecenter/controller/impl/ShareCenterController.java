@@ -44,7 +44,6 @@ public class ShareCenterController implements IShareCenterController {
             ui.getFrame().setJMenuBar(ui.getjMenuBar());
             ui.getjMenuBar().add(ui.getjMenu());
             ui.getjMenu().add(ui.getjMenu2());
-            ui.getjMenu2().add(ui.getjMenuItem6());
             ui.getjMenu2().addSeparator();
             ui.getjMenu2().add(ui.getjMenuItem7());
             ui.getjMenu().addSeparator();
@@ -278,9 +277,16 @@ public class ShareCenterController implements IShareCenterController {
                 bugVo.setBugType(bugType);
 
                 //报错信息
-                inputInformation("add error");
+                String error = inputInformation("add error");
+                String save = null;
+                if(error != null){
+                    save = inputInformation("add save");
+                }else{
+                    //报错对话框
 
-                inputInformation("add save");
+                }
+                bugVo.setBugTitle(error);
+                bugVo.setBugSolve(save);
             }
         });
         return 0;
@@ -352,7 +358,7 @@ public class ShareCenterController implements IShareCenterController {
             @Override
             public void actionPerformed(ActionEvent e) {
                 List<BugType> bugTypeList = new Vector<>();
-                List deleteList = new ArrayList();
+                List<Integer> deleteList = new ArrayList();
                 for(int i = 0;i<ui.getCheckBoxes().length-1;i++){
                     if(ui.getCheckBoxes()[i].isSelected()) {
                         deleteList.add(i);
@@ -363,9 +369,12 @@ public class ShareCenterController implements IShareCenterController {
                 }
 
                 for(int i = 0;i<deleteList.size();i++){
-                    ui.getOptions().remove(ui.getCheckBoxes()[(int) deleteList.get(i)]);
-                    ui.getStackCheck().pack();
+                    ui.getOptions().remove(ui.getCheckBoxes()[deleteList.get(i)]);
                 }
+                ui.getStackCheck().pack();
+                //居中
+                ui.getStackCheck().setLocationRelativeTo(null);
+
             }
         });
         return 0;

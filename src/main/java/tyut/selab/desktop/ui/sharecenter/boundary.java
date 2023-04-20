@@ -44,8 +44,7 @@ public class boundary{
     private JMenuItem jMenuItem5 = null;
     //筛选
     private JMenu jMenu2 = null;
-    //按用户选择
-    private JMenuItem jMenuItem6 = null;
+
     //按技术栈选择
     private JMenuItem jMenuItem7 = null;
 
@@ -106,7 +105,6 @@ public class boundary{
 
         this.jMenuItem5 = new JMenuItem("管理技术栈");
         this.jMenu2 = new JMenu("筛选");
-        this.jMenuItem6 = new JMenuItem("按用户选择");
         this.jMenuItem7 = new JMenuItem("按技术栈选择");
 
 
@@ -181,10 +179,6 @@ public class boundary{
 
     public JMenu getjMenu2() {
         return jMenu2;
-    }
-
-    public JMenuItem getjMenuItem6() {
-        return jMenuItem6;
     }
 
     public JMenuItem getjMenuItem7() {
